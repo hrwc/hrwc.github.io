@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <title>Marked.js</title>
+</head>
+<body>
+  <div id="$m" class="markdown-body"></div>
+  <textarea id="$t" style="display:none">
+> "算法之道，阴阳而已" —— 《算法导论·河图洛书篇》
+
+## 序章：程序员的命理格局
+
+自古程序员分三等：
+- 下等码农：只会`for循环`，命犯"天煞孤星"，注定WA
+- 中等选手：精通`线段树`，八字带"文昌贵人"，常拿省一
+- 上等大牛：参透`动态规划`，紫微斗数"天机化科"，保送清华
+
+## 一、五行生克与数据结构
+
+### 1.1 数组的阴阳属性
+```cpp
+int yang_array[10]; // 阳数组：下标从0开始，属火
+int yin_array[11];  // 阴数组：多留一个空间，属水
+
+> 火数组克水数组，故`memset(yin_array,0,sizeof(yang_array))`必致RE
+
+### 1.2 平衡二叉搜索树的风水布局
+```cpp
+set<int> s; // 金属性，宜放在代码西方
+/* 东方木旺处应写：
+   s.insert(3); // 3属木，木生火克金
+*/
+```
+
+## 二、奇门遁甲与算法优化
+
+### 2.1 动态规划开坛作法
+```cpp
+int dp[n][m];
+memset(dp, 0x3f, sizeof(dp)); // 请神仪式
+dp[0][0] = 0; // 点化灵根
+
+for(int i=0;i<n;++i)
+    for(int j=0;j<m;++j)
+        if(八字相合(i,j)) // 需查《三命通会》
+            dp[i][j] = min(...);
+```
+
+### 2.2 最短路焚香占卜
+```dijkstra
+priority_queue<Node> q;
+q.push(Node(1,0)); // 甲子日酉时起卦
+
+while(!q.empty()){
+    Node t = q.top(); q.pop();
+    if(今日冲煞(t.id)) continue; // 避开太岁方位
+    ...
+}
+```
+
+## 三、符咒与调试技巧
+
+### 3.1 WA驱邪符
+```cpp
+/* ✡急急如律令✡ */
+#define DEBUG(x) \
+    do{ \
+        cerr << #x << "="; \
+        焚香三炷(x); \
+        掷筊(x); \
+    }while(0)
+```
+
+### 3.2 TLE镇魂歌
+```cpp
+void solve(){
+    std::ios::sync_with_stdio(false);
+    开光(cin); 开光(cout); // 需用朱砂笔
+    念咒("临兵斗者皆阵列前行");
+    ...
+}
+```
+
+## 四、天干地支与时间复杂度
+
+| 算法         | 天干 | 地支 | 复杂度       |
+|--------------|------|------|--------------|
+| 冒泡排序     | 癸   | 亥   | O(n²)大凶    |
+| 快速排序     | 庚   | 申   | O(nlogn)中平 |
+| 量子位运算   | 甲   | 子   | O(1)大吉     |
+
+> 注：乙丙丁戊己辛壬戌丑寅卯辰巳午未酉戌另有所主
+
+## 五、考场开运秘法
+
+1. **笔咒**：用毛笔蘸墨写`#include`可增慧根
+2. **机位风水**：显示器和键盘形成"玉带环腰"局
+3. **服饰禁忌**：
+   - 忌穿红色（火克金，伤代码）
+   - 宜穿黑色（水生木，助思维）
+
+## 六、大衍之数与特殊测试数据
+
+```cpp
+const int MOD = 998244353; // 先天八卦数
+const int INF = 0x3f3f3f3f; // 后天洛书数
+const double eps = 1e-8; // 周髀算经小数
+```
+
+## 终章：程序员的面相学
+
+- **印堂发亮**：AC率+20%
+- **眼下青黑**：熬夜写代码反得灵感的征兆
+- **鼻头冒痘**：将有重大算法突破（或WA）
+
+> "十行代码九个卦，还有一行通造化" —— 《洛谷·算法奇门篇》
+
+  </textarea>
+  <script>$m.innerHTML = marked.parse($t.value);</script>
+</body>
+</html>
