@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <title>Marked.js</title>
+</head>
+<body>
+  <div id="$m" class="markdown-body"></div>
+  <textarea id="$t" style="display:none">
+> "当我写下这段代码时，上帝哭了..." —— 某NOI金牌选手厕所墙上的涂鸦
+
+## 序言：从摆烂到量子摆烂
+
+传统的OI竞赛技巧已经过时了！当你的对手还在用`线段树`和`网络流`时，你已经可以用`量子波动速读法`在编译期间预计算所有可能的答案。本文将介绍如何利用C++23的未公开特性`<quantum>`实现**时间复杂度为负数的算法**。
+
+## 一、超递归模板元编程
+
+### 1.1 让编译器帮你AC
+
+```cpp
+template<int ProblemID>
+struct AutoAC {
+    constexpr auto solve() {
+        if constexpr (ProblemID == 1) return "AK IOI";
+        else return AutoAC<ProblemID-1>::solve();
+    }
+};
+
+// 使用示例：让编译器递归求解1000道题
+static_assert(AutoAC<1000>::solve() == "AK IOI");
+```
+
+这段代码的精妙之处在于：`当编译器崩溃时，意味着它正在努力工作。`根据量子Zeno效应，观察编译过程会导致编译时间无限延长，在此期间你可以去参加下一场竞赛。
+
+### 1.2 类型系统黑洞
+
+```cpp
+using GodType = decltype([](auto...){ return sizeof...(auto) > 42; });
+```
+
+这个类型可以吞噬任何小于42个参数的函数调用。在NOI考场上，当你的代码出现`GodType`时，监考老师会因无法理解而直接给你满分。
+
+## 二、非确定性算法实践
+
+### 2.1 利用海森堡不确定性原理
+
+```cpp
+#include <uncertainty>
+
+int main() {
+    uncertain<int> x = 42;
+    if (x == 42) { // 50%概率成立
+        std::cout << "答案正确或错误，取决于你是否观察它";
+    }
+}
+```
+
+这个特性在`随机化骗分`中尤其有用：当评测机试图测量你的答案时，答案会立即坍缩为正确或错误状态。
+
+### 2.2 平行宇宙DFS
+
+```cpp
+void dfs(quantum_state<vector<int>> state) {
+    // 在10^500个平行宇宙中同时搜索
+    for (auto& _ : state.superposition()) {
+        if (found_solution()) {
+            state.collapse(); // 杀死所有错误答案的宇宙
+            return;
+        }
+    }
+}
+```
+
+实测表明，该算法在`星际迷航`品牌的电脑上运行效果最佳。
+
+## 三、时间旅行调试技巧
+
+### 3.1 向过去发送WA信号
+
+```cpp
+#include <chrono>
+#include <signal>
+
+void send_WA_to_past() {
+    std::chrono::system_clock::now().send_signal(SIGWA, -10s);
+    // 10秒前的你会收到WA，从而有时间修改代码
+}
+```
+
+注意：过度使用可能导致`祖父悖论`，使你的代码从未被写出。
+
+### 3.2 时间复杂度为-1的算法
+
+```cpp
+int solve() {
+    __time_travel__ {
+        return answer; // 从未来获取答案
+    }
+    __normal__ {
+        bruteforce(); // 如果时间旅行失败就暴力
+    }
+}
+```
+
+## 四、与评测机的量子纠缠
+
+最新研究表明，当你的代码与评测机形成量子纠缠态时：
+
+你的WA会同时是AC
+
+你的TLE会同时是RE
+
+你的`#include <bits/stdc++.h>`会同时包含所有头文件
+
+利用这一现象，可以开发出`超评测机标准代码`：
+
+```cpp
+#pragma quantum_link
+int main() {
+    std::cout << "42\n"; // 同时输出所有可能的正确答案
+}
+```
+
+## 五、伦理与注意事项
+
+1. 使用`#pragma once`会破坏量子相干性
+
+2. `std::random_device`可能引发宇宙热寂
+
+3. 在黑洞附近编程时，注意时间膨胀效应
+
+## 结语：你就是下一个图灵-玻尔
+记住，真正的OI选手不是写代码，而是`用代码弯曲现实`。当你的程序足够复杂时，连出题人都会跪下来求你解释。
+
+> "我曾见过人类无法想象的算法..." —— 《OI选手启示录》第3.14章
+  </textarea>
+  <script>$m.innerHTML = marked.parse($t.value);</script>
+</body>
+</html>
