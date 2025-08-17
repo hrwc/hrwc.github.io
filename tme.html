@@ -1,43 +1,114 @@
+
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>Nixware</title>
+  <link rel="shortcut icon" href="https://ts3.tc.mm.bing.net/th/id/ODF.u_sij9cm2lpIaBk4D0aWVg?w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2">
+  <title>安全检查 - Incapsula</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       height: 100vh;
       overflow: hidden;
-      background-color: #121212; /* фон сайта */
-      color: #ffffff;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .cloudflare-container {
+      width: 100%;
+      max-width: 650px;
+      margin: 50px auto;
+      padding: 0 20px;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      min-height: calc(100vh - 100px);
+    }
+
+    .cloudflare-header {
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .cloudflare-logo {
+      width: 180px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .cloudflare-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .cloudflare-subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 30px;
     }
 
     .captcha-box {
-      background: #1e1e1e; /* фон капчи */
-      padding: 20px 40px;
-      border: 1px solid #333;
+      background: #fff;
+      padding: 30px;
+      border: 1px solid #e0e0e0;
       border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-      z-index: 1;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
     }
 
     .checkbox-area {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
       cursor: pointer;
-      color: #f1f1f1;
+      color: #333;
+      padding: 15px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      transition: all 0.2s;
+    }
+
+    .checkbox-area:hover {
+      background-color: #f0f0f0;
+      border-color: #c9c9c9;
     }
 
     .checkbox-area input {
-      width: 20px;
-      height: 20px;
-      accent-color: #00bfff;
+      width: 22px;
+      height: 22px;
+      accent-color: #FF7D00;
+    }
+
+    .checkbox-label {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .cloudflare-footer {
+      font-size: 14px;
+      color: #999;
+      margin-top: auto;
+      padding-bottom: 20px;
+      text-align: center;
+    }
+
+    .loading-bar {
+      height: 4px;
+      background-color: #f0f0f0;
+      margin-top: 20px;
+      border-radius: 3px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .loading-progress {
+      height: 100%;
+      width: 0;
+      background-color: #FF7D00;
+      transition: width 0.5s ease;
     }
 
     #screamer {
@@ -58,24 +129,135 @@
       height: 100vh;
       object-fit: cover;
     }
+    
+    /* 新增的解释部分样式 - 与页脚同一层级 */
+    .explanation-container {
+      margin-top: 15px;
+    }
+    
+    .explanation-toggle {
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .explanation-toggle:hover {
+      color: #333;
+    }
+    
+    .explanation-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #f9f9f9;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    
+    .explanation-content.show {
+      max-height: 500px;
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .explanation-content p {
+      margin: 0 0 10px 0;
+      line-height: 1.5;
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .arrow {
+      transition: transform 0.3s;
+    }
+    
+    .arrow.rotate {
+      transform: rotate(180deg);
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
-
-<div class="captcha-box">
-  <div class="checkbox-area" onclick="triggerScreamer()">
-    <input type="checkbox" id="robot-checkbox">
-    <label for="robot-checkbox">Я не робот</label>
+<div class="cloudflare-container">
+  <div class="cloudflare-header">
+    <img src="https://ts3.tc.mm.bing.net/th/id/ODF.u_sij9cm2lpIaBk4D0aWVg?w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2" alt="Incapsula" class="im-logo">
+    <h1 class="cloudflare-title">hrwc.github.io</h1>
+    <h1 class="cloudflare-title">安全检查中...</h1>
+    <p class="cloudflare-subtitle">请完成以下验证以继续访问</p>
+  </div>
+  
+  <div class="captcha-box">
+    <div class="checkbox-area" onclick="startVerification()">
+      <input type="checkbox" id="robot-checkbox">
+      <label for="robot-checkbox" class="checkbox-label">我不是机器人</label>
+    </div>
+    <div class="loading-bar" id="loadingBar">
+      <div class="loading-progress" id="loadingProgress"></div>
+    </div>
+  </div>
+  
+  <!-- 将解释部分移到验证框外，与页脚同一层级 -->
+  <div class="explanation-container">
+    <div class="explanation-toggle" onclick="toggleExplanation()">
+      <span>我为什么会看到此页面？</span>
+      <svg class="arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+    <div class="explanation-content" id="explanationContent">
+      <p>为了保护网站免受恶意流量和自动化程序的攻击，我们使用了Incapsula的安全服务。</p>
+      <p>当系统检测到异常的访问模式时（例如来自特定IP地址的高频率请求），可能会要求您完成验证以确认您是真实用户。</p>
+      <p>这有助于防止分布式拒绝服务(DDoS)攻击和恶意爬虫程序对网站的滥用。</p>
+      <p>完成验证后，您将能够正常访问网站内容。此过程通常只需几秒钟。</p>
+    </div>
+  </div>
+  
+  <div class="cloudflare-footer">
+    <div class="footer-content">
+      <p>DDoS保护由Incapsula提供</p>
+      <p>Ray ID: 7b5KjXgKAQ4u4y4m • © 2025 Incapsula</p>
+    </div>
   </div>
 </div>
 
 <div id="screamer">
-  <img src="screamer.gif" alt="Screamer">
+  <img src="dg.gif" alt="Screamer">
 </div>
 
-<audio id="scream-sound" src="gudok-poezda.mp3"></audio>
+<audio id="scream-sound" src="https://hrwc.github.io/gudok-poezda.mp3"></audio>
 
 <script>
+  function startVerification() {
+    const checkbox = document.getElementById('robot-checkbox');
+    const loadingBar = document.getElementById('loadingBar');
+    const loadingProgress = document.getElementById('loadingProgress');
+    
+    // 模拟Cloudflare验证过程
+    checkbox.checked = true;
+    loadingBar.style.display = 'block';
+    
+    // 模拟进度条加载
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      loadingProgress.style.width = `${Math.min(progress, 100)}%`;
+      
+      if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(triggerScreamer, 500); // 延迟触发惊吓效果
+      }
+    }, 200);
+  }
+
   function triggerScreamer() {
     const screamer = document.getElementById('screamer');
     const audio = document.getElementById('scream-sound');
@@ -90,7 +272,15 @@
     document.onkeydown = () => false;
     window.onbeforeunload = () => true;
   }
+  
+  // 解释部分切换函数
+  function toggleExplanation() {
+    const content = document.getElementById('explanationContent');
+    const arrow = document.querySelector('.arrow');
+    
+    content.classList.toggle('show');
+    arrow.classList.toggle('rotate');
+  }
 </script>
-
 </body>
 </html>
