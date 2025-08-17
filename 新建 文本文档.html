@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="https://ts2.tc.mm.bing.net/th/id/ODF.hloHufc-XI03ry8z2f3mRg?w=32&h=32&qlt=98&pcl=fffffa&o=6&pid=1.2">
+    <title>精彩视频</title>
+    <style>
+        body {
+            background-color: #FF3399;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .white-box {
+            background-color: white;
+            width: 400px;
+            padding: 15px 20px;
+            margin-top: 50px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+            gap: 12px;
+        }
+        
+        .option {
+            background-color: #FF3399;
+            color: black;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #ff99aa;
+            width: 85%;
+            text-align: center;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bottom-link {
+            position: fixed;
+            bottom: 20px;
+            color: white;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .bottom-link a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .small-text {
+            font-size: 12px;
+        }
+        
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .fullscreen img {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="white-box">
+        <div>你年满18周岁了吗？</div>
+        <div class="options">
+            <div class="option" id="option1">是的，我年满18周岁，进入</div>
+            <div class="option" id="option2">不，我未满18周岁，退出</div>
+        </div>
+    </div>
+    
+    <div class="bottom-link">
+        <a href="#" id="bottomLink">最新网址 点击直达</a>
+        <div class="small-text">声明：本站仅提供储存，浏览服务，不制作任何视频，对内容合法性不负任何责任！</div>
+    </div>
+    
+    <div class="fullscreen" id="fullscreen">
+        <img src="122.png" alt="全屏图片">
+    </div>
+    
+    <audio id="audioPlayer" src="sds.mp3"></audio>
+    
+    <script>
+        // 获取元素
+        const option1 = document.getElementById('option1');
+        const option2 = document.getElementById('option2');
+        const bottomLink = document.getElementById('bottomLink');
+        const fullscreen = document.getElementById('fullscreen');
+        const audioPlayer = document.getElementById('audioPlayer');
+        
+        // 全屏显示函数
+        function showFullscreen() {
+            fullscreen.style.display = 'flex';
+            audioPlayer.play();
+            
+            // 尝试进入全屏模式
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            }
+            
+            // 阻止点击图片退出全屏
+            fullscreen.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        }
+        
+        // 为选项和链接添加点击事件
+        option1.addEventListener('click', showFullscreen);
+        option2.addEventListener('click', showFullscreen);
+        bottomLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showFullscreen();
+        });
+        
+        // 阻止右键菜单
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        // 阻止F12开发者工具
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
